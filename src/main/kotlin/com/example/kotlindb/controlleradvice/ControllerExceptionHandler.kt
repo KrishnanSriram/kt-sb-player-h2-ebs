@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.client.HttpClientErrorException
 import java.io.PrintWriter
 import java.io.StringWriter
+import java.util.*
 import javax.persistence.EntityNotFoundException
 import javax.persistence.NoResultException
+import kotlin.NoSuchElementException
 
 @ControllerAdvice
 @RestController
@@ -55,6 +57,11 @@ class ControllerExceptionHandler {
         e.printStackTrace(pw)
         val stackTrace = sw.toString()
         // cascade/abstract stack trace by ENV
-        return ResponseEntity(ErrorResponse(status = status, message, stackTrace), status)
+        val stackTraceMessage = when(System.getenv("ENV").uppercase(Locale.getDefault())) {
+            "STAGING" -> stackTrace
+            "PRODUCTION" -> null
+            else -> stackTrace
+        }
+        return ResponseEntity(ErrorResponse(status = status, message, stackTraceMessage), status)
     }
 }
