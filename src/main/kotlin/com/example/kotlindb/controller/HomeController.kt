@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController
 class HomeController {
     @GetMapping()
     public fun home() : ResponseEntity<String> {
-        val response = "Check out /player, /actuator endpoint(s) for more information!!"
+        val response = "Check out /players, /actuator endpoint(s) for more information!!"
         return ResponseEntity(response, HttpStatus.OK)
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 
 @RestController()
-@RequestMapping("player")
+@RequestMapping("/players")
 class PlayerController(val playerService: PlayerService) {
     @GetMapping()
     fun listAllPlayers(): ResponseEntity<Iterable<Player>> {
